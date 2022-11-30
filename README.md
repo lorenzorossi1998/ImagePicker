@@ -78,6 +78,32 @@ dependencies{
 
 where `x.x.x` corresponds to latest release version published in [ ![release](https://img.shields.io/github/release/Mariovc/ImagePicker.svg) ](https://github.com/Mariovc/ImagePicker/releases/latest)
 
+To make `FileProvider` inside `ImagePicker` library works properly you have to add also these line inside the `application` tag in the `AndroidManifest.xml` file
+```
+<application
+  ...>
+  <provider
+      android:name="android.support.v4.content.FileProvider"
+      android:authorities="${applicationId}.provider"
+      android:exported="false"
+      android:grantUriPermissions="true">
+      <meta-data
+          android:name="android.support.FILE_PROVIDER_PATHS"
+          android:resource="@xml/provider_paths" />
+  </provider>
+  ...
+</application>
+```
+
+and, as you can see from the `android:resource="@xml/provider_paths"` line, you also have to provide a `provider_path.xml` file, which will contains these lines below
+```
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path
+      name="external_files"
+      path="." />
+</paths>
+```
 
 Contributing
 --------------------------
